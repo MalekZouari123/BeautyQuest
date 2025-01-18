@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmetic Surgery Platform</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc1L2y7OnZgKqukCC4rcUMevlmWoIA9Yc&callback=initMap" async defer></script>
+    <!-- Facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=439806739070571&autoLogAppEvents=1" nonce="YOUR_NONCE"></script>
+
+    <!-- Twitter SDK -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="hero">
+        <nav>
+            <div class="brand-name">BeautyQuest</div>
+            <button class="login-btn" onclick="showModal('loginModal')">LOGIN</button>
+            <a href="#aboutSection" onclick="scrollToAbout(event)">About</a>
+            <a href="#servicesSection" onclick=scrollToServices(event)>Services</a>
+            <a href="#reviewsSection" onclick="scrollToReviews(event)">Reviews</a>
+            
+        </nav>
+
+        <div class="hero-content">
+            <h1>Personalized Cosmetic Surgery Insights</h1>
+            <p>Receive Tailored Cosmetic Surgery Recommendations and Clinic Options Based on Your Unique Facial Features</p>
+            <label class="upload-btn">
+                Upload Your Photo
+                <input type="file" accept="image/*" style="display: none" onchange="handlePhotoUpload(event)">
+            </label>
+        </div>
+    </div>
+    <section id="aboutSection" class="about-section">
+        <div class="about-content">
+            <h2>About BeautyQuest</h2>
+            <p>Welcome to BeautyQuest, where we use advanced AI to provide personalized cosmetic surgery recommendations and help you find the best clinics based on your preferences. Our mission is to empower you with tailored insights and connect you with top-rated clinics for your aesthetic needs.</p>
+        </div>
+    </section>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <div class="password-container">
+                        <input type="password" name="password" required>
+                        <i data-lucide="eye" class="password-toggle" onclick="togglePassword(this)"></i>
+                    </div>
+                </div>
+                <button type="submit" class="upload-btn" style="width: 100%">Sign In</button>
+                <p style="text-align: center; margin-top: 1rem">
+                    Don't have an account? 
+                    <button type="button" onclick="switchModal('loginModal', 'signupModal')" 
+                            style="color: #2563eb; background: none; border: none; cursor: pointer">
+                        Sign Up
+                    </button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">Sign Up</h2>
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <div class="password-container">
+                        <input type="password" name="password" required>
+                        <i data-lucide="eye" class="password-toggle" onclick="togglePassword(this)"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password:</label>
+                    <div class="password-container">
+                        <input type="password" name="confirmPassword" required>
+                        <i data-lucide="eye" class="password-toggle" onclick="togglePassword(this)"></i>
+                    </div>
+                </div>
+                <button type="submit" class="upload-btn" style="width: 100%">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    <div class="services-section" id="servicesSection">
+        <div class="services-container">
+            <h1 class="services-title">Our Services</h1>
+            <p class="services-subtitle">Personalized AI Surgery Recommendations<br>Based on Facial Features and Clinic Finder</p>
+            
+            <div class="services-grid">
+                <!-- AI Recommendations Card -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h2>AI-Driven Recommendations</h2>
+                    <p>Upload your photo, and our AI will suggest personalized surgery options based on your unique facial features.</p>
+                </div>
+    
+                <!-- Clinic Finder Card -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h2>Clinic Finder</h2>
+                    <p>Discover clinics filtered by location and price, with detailed information to help you choose the best option.</p>
+                </div>
+    
+                <!-- User Interface Card -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h2>User-Friendly Interface</h2>
+                    <p>Easily navigate through recommendations and clinic listings with our intuitive interface.</p>
+                </div>
+            </div>
+        </div>
+
+    <section id="reviewsSection" class="reviews-section">
+        <div class="reviews-content">
+            <div class="share-experience">
+                <h2>Share your experience:</h2>
+                <p>Tell others about your cosmetic surgery journey!</p>
+                <div class="social-buttons">
+                    <!-- Facebook Share Button -->
+                    <div class="fb-share-button" 
+                        data-href="https://your-platform-link.com" 
+                        data-layout="button"
+                        data-size="large">
+                    </div>
+                    
+                    <!-- Twitter Share Button -->
+         <div class="twitter-share-button" 
+        data-size="large" 
+        data-text="Check out my cosmetic surgery journey!" 
+         data-url="https://your-platform-link.com" 
+        data-hashtags="CosmeticSurgery">
+    <a href="https://your-platform-link.com" target="_blank">
+      <i class="fab fa-twitter"></i> Tweet
+    </a>
+  </div>
+                </div>
+            </div>
+            <div class="feedback-form">
+                <h2>Feedback Form</h2>
+                <form id="feedbackForm" onsubmit="handleFeedback(event)">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback">Feedback:</label>
+                        <textarea id="feedback" name="feedback" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="upload-btn" style="width: 100%">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <main id="mainContent">
+        <div class="clinic-list-section">
+            <h2>Clinics</h2>
+            <div class="filters">
+                <label for="locationFilter">Location:</label>
+                <select id="locationFilter" onchange="filterClinics()">
+                    <option value="">All</option>
+                    <option value="Tunis">Tunis</option>
+                    <option value="Mahdia">Mahdia</option>
+                    <option value="Sousse">Sousse</option>
+                    <option value="Monastir">Monastir</option>
+                </select>
+                <label for="ratingFilter">Rating:</label>
+                <select id="ratingFilter" onchange="filterClinics()">
+                    <option value="">All</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div id="clinicList"></div>
+        </div>
+    </main>
+    
+    <div id="map" style="height: 400px; width: 100%; margin-top: 2rem;"></div>
+
+    <footer>
+        <p>&copy; 2024 Cosmetic Surgery Platform</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '439806739070571',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v12.0'
+            });
+            FB.AppEvents.logPageView();   
+        };
+
+        function scrollToReviews(event) {
+            event.preventDefault();
+            document.getElementById('reviewsSection').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'none'; // Hide main content if needed
+            document.getElementById('reviewsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
